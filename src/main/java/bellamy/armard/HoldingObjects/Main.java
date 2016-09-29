@@ -6,8 +6,7 @@ package bellamy.armard.HoldingObjects;
 public class Main {
     public static void main(String[] args) {
         PhoneBook phoneBook = new PhoneBook();
-        phoneBook.addContact("Armard", "222-222-2222");
-        phoneBook.addContact("Oscar", "123-123-1234");
+        phoneBook.addContact("Armard", Contact.NumberType.CELL, "123-123-1231");
 
        // phoneBook.printNames();
         //phoneBook.listAllEntries();

@@ -7,39 +7,13 @@ import java.util.*;
  */
 public class PhoneBook {
 
-    private String name;
-    private String number;
-    public Map<String, String> directory = new TreeMap<String, String>();
 
-    public PhoneBook() {
-    }
 
-    public String getName() {
-        return name;
-    }
+    private Map<String, Contact> directory = new TreeMap<String, Contact>();
 
-    public void setName(String name) {
-        this.name = name;
-    }
 
-    public String getNumber() {
-        return number;
-    }
-
-    public void setNumber(String number) {
-        this.number = number;
-    }
-
-    public Map<String, String> getDirectory() {
-        return directory;
-    }
-
-    public void setDirectory(Map<String, String> directory) {
-        this.directory = directory;
-    }
-
-    public void addContact(String name, String number){
-        directory.put(name, number);
+    public void addContact(String name, Contact.NumberType numberType, String number){
+        directory.put(name,  new Contact(name, numberType, number));
     }
 
     public void removeContact(String name){
@@ -51,13 +25,18 @@ public class PhoneBook {
 
     }
 
-    public String lookUp(String name) {
+    public Contact lookUp(String name) {
 
         if (directory.containsKey(name)){
-            return "Name: " + name + " | " + "Number: " + directory.get(name);
+            for(Map.Entry<String, Contact> mp: directory.entrySet()){
+                String key = mp.getKey();
+                Contact value = mp.getValue();
+                System.out.println("Name: " + key + " | " + "Number(s)" + value);
+            }
         } else {
-            return "Name not found in directory";
+            System.out.println("Name not found in directory");
         }
+        return null;
 
     }
 
@@ -71,15 +50,15 @@ public class PhoneBook {
 
     public void listAllEntries(){
         System.out.println("Displaying contents of Directory: ");
-        for(Map.Entry<String, String> log: directory.entrySet()){
+        for(Map.Entry<String, Contact> log: directory.entrySet()){
             String key = log.getKey();
-            String value = log.getValue();
+            Contact value = log.getValue();
             System.out.println("Name: " + key + " | " + "Number: " + value);
         }
     }
 
     public String reverseLookUp(String number){
-        for (Map.Entry<String, String> entry: directory.entrySet()){
+        for (Map.Entry<String, Contact> entry: directory.entrySet()){
             if(entry.getValue().equals(number)){
                 return entry.getKey();
             }
